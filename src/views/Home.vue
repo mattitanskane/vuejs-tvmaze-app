@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Tools v-on:filter-items="filterItems" v-on:sort-items="sortItems" />
-    <Items v-bind:items="items"/>
+    <Items v-bind:items="filteredItems"/>
   </div>
 </template>
 
@@ -33,6 +33,7 @@ export default {
     methods: {
         filterItems(search) {
             console.log(search)
+            this.search = search
         },
         sortItems() {
 
@@ -40,7 +41,10 @@ export default {
     },
     computed: {
         filteredItems: function() {
-            return true
+            console.log(this.items)
+            return this.items.filter(item => {
+                return item.name.toLowerCase().match(this.search)
+            })
         }
     }
 }
