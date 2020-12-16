@@ -1,4 +1,12 @@
 # vuejs-tvmaze
+Simple VueJS application that presents searchable and sortable data from the [tvmaze.com API](http://www.tvmaze.com/api).
+
+Built using the following:
+- vue-cli
+- vue-router
+- VueJS Devtools for Chrome
+- Vetur for VSCode
+- axios
 
 ## Project setup
 ```
