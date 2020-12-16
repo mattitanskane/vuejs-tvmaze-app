@@ -15,10 +15,4 @@ export default {
 </script>
 
 <style scoped>
-    .btn-view-details {
-        display: none;
-    }
-    tr:hover .btn-view-details {
-        display: block;
-    }
 </style>
