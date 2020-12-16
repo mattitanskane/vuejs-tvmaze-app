@@ -2,8 +2,9 @@
     <nav>
         <input type="text" placeholder="Search..." v-model="search" v-on:input="filterItems">
         Sort by
-        <button>Highest rated</button>
-        <button>Title</button>
+        <button v-on:click="sortAlphabetical">Name</button>
+        <button v-on:click="sortOldest">Oldest first</button>
+        <button v-on:click="sortNewest">Newest first</button>
     </nav>
 </template>
 
@@ -18,7 +19,16 @@ export default {
     methods: {
         filterItems() {
             this.$emit('filter-items', this.search)
-        }
+        },
+        sortAlphabetical() {
+            this.$emit('sort-alpha', 'ALPHA')
+        },
+        sortNewest() {
+            this.$emit('sort-new', 'NEW')
+        },
+        sortOldest() {
+            this.$emit('sort-old', 'OLD')
+        },
     }
 }
 </script>

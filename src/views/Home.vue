@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Tools v-on:filter-items="filterItems" v-on:sort-items="sortItems" />
+    <Tools v-on:filter-items="filterItems" v-on:sort-alpha="sortAlphabetically" v-on:sort-new="sortByNewest" v-on:sort-old="sortByOldest" />
     <Items v-bind:items="filteredItems"/>
   </div>
 </template>
@@ -32,16 +32,32 @@ export default {
     },
     methods: {
         filterItems(search) {
-            console.log(search)
             this.search = search
         },
-        sortItems() {
-
-        }
+        sortAlphabetically() {
+            return this.items.sort((a, b) => {
+                if (a.name < b.name) { return -1 }
+                if (a.name > b.name) { return 1 }
+                return 0;
+            })
+        },
+        sortByNewest() {
+            return this.items.sort((a, b) => {
+                const aDate = new Date(a.airstamp)
+                const bDate = new Date(b.airstamp)
+                return bDate - aDate
+            })
+        },
+        sortByOldest() {
+            return this.items.sort((a, b) => {
+                const aDate = new Date(a.airstamp)
+                const bDate = new Date(b.airstamp)
+                return aDate - bDate
+            })
+        },
     },
     computed: {
         filteredItems: function() {
-            console.log(this.items)
             return this.items.filter(item => {
                 return item.name.toLowerCase().match(this.search)
             })
