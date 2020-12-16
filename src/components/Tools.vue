@@ -1,13 +1,33 @@
 <template>
-    <nav>
-        <input type="text" placeholder="Search episodes..." v-model="search" v-on:input="filterItems">
-        <div>
-            <p>Sort by</p>
-            <button v-on:click="sortAlphabetical" class="btn btn-sort">Name</button>
-            <button v-on:click="sortOldest" class="btn btn-sort">Oldest first</button>
-            <button v-on:click="sortNewest" class="btn btn-sort">Newest first</button>
-        </div>
-    </nav>
+  <nav>
+    <input
+      v-model="search"
+      type="text"
+      placeholder="Search episodes..."
+      @input="filterItems"
+    >
+    <div>
+      <p>Sort by</p>
+      <button
+        class="btn btn-sort"
+        @click="sortAlphabetical"
+      >
+        Name
+      </button>
+      <button
+        class="btn btn-sort"
+        @click="sortOldest"
+      >
+        Oldest first
+      </button>
+      <button
+        class="btn btn-sort"
+        @click="sortNewest"
+      >
+        Newest first
+      </button>
+    </div>
+  </nav>
 </template>
 
 <script>

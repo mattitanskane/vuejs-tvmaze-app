@@ -1,20 +1,29 @@
 <template>
-    <table class="table">
-        <thead>
-            <th>Name</th>
-            <th>Episode number</th>
-            <th>Originally aired on</th>
-            <th></th>
-        </thead>
-        <tbody>
-            <Item v-for="(item, index) in items" v-bind:item="item" v-bind:index="index" v-bind:key="item.id" class="row" />
-            <tr v-if="items.length == 0">
-                <td colspan="4" class="no-results">
-                    No matching results.
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <table class="table">
+    <thead>
+      <th>Name</th>
+      <th>Episode number</th>
+      <th>Originally aired on</th>
+      <th />
+    </thead>
+    <tbody>
+      <Item
+        v-for="(item, index) in items"
+        :key="item.id"
+        :item="item"
+        :index="index"
+        class="row"
+      />
+      <tr v-if="items.length == 0">
+        <td
+          colspan="4"
+          class="no-results"
+        >
+          No matching results.
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
@@ -24,7 +33,12 @@ export default {
     components: {
         Item
     },
-    props: ['items']
+    props: {
+        items: {
+            type: Array,
+            default: () => ([])
+        }
+    }
 }
 </script>
 

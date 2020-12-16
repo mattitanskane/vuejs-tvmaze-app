@@ -1,7 +1,12 @@
 <template>
   <div class="home">
-    <Tools v-on:filter-items="filterItems" v-on:sort-alpha="sortAlphabetically" v-on:sort-new="sortByNewest" v-on:sort-old="sortByOldest" />
-    <Items v-bind:items="filteredItems"/>
+    <Tools
+      @filter-items="filterItems"
+      @sort-alpha="sortAlphabetically"
+      @sort-new="sortByNewest"
+      @sort-old="sortByOldest"
+    />
+    <Items :items="filteredItems" />
   </div>
 </template>
 
@@ -25,10 +30,17 @@ export default {
             sortBy: 0
         }
     },
+    computed: {
+        filteredItems: function() {
+            return this.items.filter(item => {
+                return item.name.toLowerCase().match(this.search)
+            })
+        }
+    },
     created() {
         axios.get('http://api.tvmaze.com/shows/3474/episodes')
             .then(res => this.items = res.data)
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
     },
     methods: {
         filterItems(search) {
@@ -38,7 +50,7 @@ export default {
             return this.items.sort((a, b) => {
                 if (a.name < b.name) { return -1 }
                 if (a.name > b.name) { return 1 }
-                return 0;
+                return 0
             })
         },
         sortByNewest() {
@@ -55,13 +67,6 @@ export default {
                 return aDate - bDate
             })
         },
-    },
-    computed: {
-        filteredItems: function() {
-            return this.items.filter(item => {
-                return item.name.toLowerCase().match(this.search)
-            })
-        }
     }
 }
 </script>
