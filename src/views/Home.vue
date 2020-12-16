@@ -1,40 +1,34 @@
 <template>
   <div class="home">
     <Tools v-on:filter-items="filterItems" v-on:sort-items="sortItems" />
-    <Shows v-bind:items="items"/>
+    <Items v-bind:items="items"/>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 // @ is an alias to /src
 import Tools from '@/components/Tools'
-import Shows from '@/components/Shows'
+import Items from '@/components/Items'
 
 export default {
     name: 'Home',
     components: {
-        Shows,
+        Items,
         Tools
     },
     data() {
         return {
-            items: [
-                {
-                    id: 1,
-                    title: "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-                },
-                {
-                    id: 2,
-                    title: "qui est esse",
-                },
-                {
-                    id: 3,
-                    title: "ea molestias quasi exercitationem repellat qui ipsa sit aut",
-                }
-            ],
+            items: [],
             search: '',
             sortBy: 0
         }
+    },
+    created() {
+        axios.get('http://api.tvmaze.com/shows/3474/episodes')
+            .then(res => this.items = res.data)
+            .catch(err => console.log(err));
     },
     methods: {
         filterItems(search) {
